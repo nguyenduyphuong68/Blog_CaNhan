@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Các Pattern Giao Tiếp trong Microservices - Java Developer Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            200: '#bcccdc',
+                            300: '#9fb3c8',
+                            400: '#829ab1',
+                            500: '#627d98',
+                            600: '#486581',
+                            700: '#334e68',
+                            800: '#243b53',
+                            900: '#102a43',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .post-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.75;
+        }
+        .post-content h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #102a43;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .post-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #243b53;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .post-content code {
+            background-color: #f1f5f9;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+            color: #334e68;
+        }
+        .post-content pre {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        .post-content pre code {
+            background-color: transparent;
+            padding: 0;
+            color: inherit;
+        }
+        .post-content ul, .post-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .post-content li {
+            margin-bottom: 0.5rem;
+        }
+        .post-content a {
+            color: #486581;
+            text-decoration: underline;
+        }
+        .post-content a:hover {
+            color: #102a43;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 antialiased">
+    <nav class="fixed top-4 left-4 right-4 z-50 max-w-7xl mx-auto">
+        <div class="bg-white/90 backdrop-blur-md border border-gray-200 rounded-lg shadow-sm px-6 py-3 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-semibold text-navy-900 cursor-pointer">I’m Phuong</a>
+            <a href="index.html" class="text-slate-600 hover:text-navy-900 transition-colors duration-200 cursor-pointer flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Về trang chủ
+            </a>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <article>
+                <header class="mb-8">
+                    <div class="flex items-center gap-2 mb-4">
+                        <a href="index.html" class="text-sm text-slate-500 hover:text-navy-900 transition-colors duration-200 cursor-pointer flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            </svg>
+                            Về danh sách bài viết
+                        </a>
+                        <span class="text-slate-400">•</span>
+                        <span class="text-sm text-slate-500 font-mono">22 tháng 12, 2026</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-navy-900 mb-6 leading-tight">Các Pattern Giao Tiếp trong Microservices</h1>
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Microservices</span>
+                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Architecture</span>
+                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Distributed Systems</span>
+                    </div>
+                </header>
+
+                <div class="post-content bg-white border border-gray-200 rounded-2xl shadow-sm p-8 md:p-12 prose prose-slate max-w-none">
+                    <p>Kiến trúc microservices yêu cầu cân nhắc cẩn thận về cách các services giao tiếp với nhau. Lựa chọn communication pattern ảnh hưởng đáng kể đến hiệu suất, độ tin cậy và độ phức tạp của hệ thống.</p>
+                    
+                    <h2>Giao Tiếp Đồng Bộ (Synchronous Communication)</h2>
+                    <p>Synchronous communication liên quan đến các pattern request-response trực tiếp nơi caller chờ phản hồi trước khi tiếp tục.</p>
+                    
+                    <h3>REST APIs</h3>
+                    <p>REST (Representational State Transfer) là pattern phổ biến nhất cho synchronous communication. Nó sử dụng HTTP methods và không phụ thuộc vào ngôn ngữ.</p>
+                    <pre><code>@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    @GetMapping("/{id}")
+    public ResponseEntity&lt;User&gt; getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.findById(id));
+    }
+}</code></pre>
+                    
+                    <h3>gRPC</h3>
+                    <p>gRPC cung cấp RPC communication hiệu suất cao sử dụng Protocol Buffers. Nó lý tưởng cho inter-service communication nơi hiệu suất là quan trọng.</p>
+                    
+                    <h2>Giao Tiếp Bất Đồng Bộ (Asynchronous Communication)</h2>
+                    <p>Asynchronous patterns tách rời services bằng cách sử dụng message brokers, cải thiện khả năng phục hồi và khả năng mở rộng của hệ thống.</p>
+                    
+                    <h3>Message Queues</h3>
+                    <p>Message queues như RabbitMQ, Apache Kafka, và AWS SQS cho phép kiến trúc event-driven nơi các services publish và subscribe events.</p>
+                    
+                    <h2>Chọn Pattern Phù Hợp</h2>
+                    <ul>
+                        <li><strong>REST</strong>: Tốt nhất cho external APIs và các scenarios request-response đơn giản</li>
+                        <li><strong>gRPC</strong>: Lý tưởng cho internal service-to-service communication yêu cầu hiệu suất cao</li>
+                        <li><strong>Message Queues</strong>: Hoàn hảo cho event-driven architectures và các hệ thống decoupled</li>
+                    </ul>
+                </div>
+
+                <footer class="mt-12 pt-8 border-t border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <a href="index.html" class="inline-flex items-center gap-2 px-6 py-3 bg-navy-900 text-white rounded-lg hover:bg-navy-800 transition-colors duration-200 cursor-pointer">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            </svg>
+                            Về tất cả bài viết
+                        </a>
+                        <div class="text-sm text-slate-500">
+                            Chia sẻ bài viết
+                        </div>
+                    </div>
+                </footer>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-gray-200 py-8 px-4">
+        <div class="max-w-6xl mx-auto text-center text-slate-600">
+            <p>&copy; Được xây dựng với đam mê cho clean code.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

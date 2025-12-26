@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xây Dựng Ứng Dụng Mobile với Flutter - Java Developer Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            200: '#bcccdc',
+                            300: '#9fb3c8',
+                            400: '#829ab1',
+                            500: '#627d98',
+                            600: '#486581',
+                            700: '#334e68',
+                            800: '#243b53',
+                            900: '#102a43',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .post-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.75;
+        }
+        .post-content h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #102a43;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .post-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #243b53;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .post-content code {
+            background-color: #f1f5f9;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+            color: #334e68;
+        }
+        .post-content pre {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        .post-content pre code {
+            background-color: transparent;
+            padding: 0;
+            color: inherit;
+        }
+        .post-content ul, .post-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .post-content li {
+            margin-bottom: 0.5rem;
+        }
+        .post-content a {
+            color: #486581;
+            text-decoration: underline;
+        }
+        .post-content a:hover {
+            color: #102a43;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 antialiased">
+    <!-- Navigation -->
+    <nav class="fixed top-4 left-4 right-4 z-50 max-w-7xl mx-auto">
+        <div class="bg-white/90 backdrop-blur-md border border-gray-200 rounded-lg shadow-sm px-6 py-3 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-semibold text-navy-900 cursor-pointer">I’m Phuong</a>
+            <a href="index.html" class="text-slate-600 hover:text-navy-900 transition-colors duration-200 cursor-pointer flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Về trang chủ
+            </a>
+        </div>
+    </nav>
+
+    <!-- Post Content -->
+    <main class="pt-32 pb-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <article>
+                <!-- Post Header -->
+                <header class="mb-8">
+                    <div class="flex items-center gap-2 mb-4">
+                        <a href="index.html" class="text-sm text-slate-500 hover:text-navy-900 transition-colors duration-200 cursor-pointer flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            </svg>
+                            Về danh sách bài viết
+                        </a>
+                        <span class="text-slate-400">•</span>
+                        <span class="text-sm text-slate-500 font-mono">22 tháng 12, 2026</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-navy-900 mb-6 leading-tight">Xây Dựng Ứng Dụng Mobile với Flutter</h1>
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Flutter</span>
+                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Mobile Development</span>
+                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Dart</span>
+                    </div>
+                </header>
+
+                <!-- Post Body -->
+                <div class="post-content bg-white border border-gray-200 rounded-2xl shadow-sm p-8 md:p-12 prose prose-slate max-w-none">
+                    <p>Flutter là một framework mã nguồn mở của Google để xây dựng ứng dụng mobile đa nền tảng. Với một codebase duy nhất, bạn có thể tạo ứng dụng cho cả iOS và Android với hiệu suất gần như native.</p>
+                    
+                    <h2>Tại Sao Chọn Flutter?</h2>
+                    <p>Flutter sử dụng Dart programming language và cung cấp một bộ widget phong phú, cho phép developers tạo UI đẹp mắt và responsive một cách nhanh chóng.</p>
+                    
+                    <h3>Ưu Điểm Chính</h3>
+                    <ul>
+                        <li><strong>Hot Reload</strong>: Xem thay đổi ngay lập tức mà không cần restart app</li>
+                        <li><strong>Single Codebase</strong>: Viết một lần, chạy trên cả iOS và Android</li>
+                        <li><strong>Performance</strong>: Compile thành native code, hiệu suất cao</li>
+                        <li><strong>Rich Widgets</strong>: Bộ widget phong phú và customizable</li>
+                    </ul>
+                    
+                    <h2>Widget Tree và Composition</h2>
+                    <p>Flutter sử dụng widget tree để xây dựng UI. Mọi thứ trong Flutter đều là widget:</p>
+                    <pre><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Flutter Blog'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Hello Flutter!'),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text('Click Me'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre>
+                    
+                    <h2>State Management</h2>
+                    <p>Quản lý state là một phần quan trọng trong Flutter. Có nhiều cách tiếp cận:</p>
+                    
+                    <h3>setState() - Cho StatefulWidget</h3>
+                    <pre><code>class CounterWidget extends StatefulWidget {
+  @override
+  _CounterWidgetState createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State&lt;CounterWidget&gt; {
+  int _counter = 0;
+  
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('Counter: $_counter'),
+        ElevatedButton(
+          onPressed: _incrementCounter,
+          child: Text('Increment'),
+        ),
+      ],
+    );
+  }
+}</code></pre>
+                    
+                    <h3>Provider - State Management Package</h3>
+                    <p>Provider là một cách phổ biến để quản lý state trong Flutter:</p>
+                    <pre><code>import 'package:provider/provider.dart';
+
+class CounterProvider extends ChangeNotifier {
+  int _count = 0;
+  
+  int get count => _count;
+  
+  void increment() {
+    _count++;
+    notifyListeners();
+  }
+}
+
+// Sử dụng trong widget
+Consumer&lt;CounterProvider&gt;(
+  builder: (context, counter, child) {
+    return Text('Count: ${counter.count}');
+  },
+)</code></pre>
+                    
+                    <h2>Navigation và Routing</h2>
+                    <p>Flutter cung cấp Navigator để điều hướng giữa các màn hình:</p>
+                    <pre><code>// Navigate to new screen
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => SecondScreen()),
+);
+
+// Navigate back
+Navigator.pop(context);
+
+// Named routes
+MaterialApp(
+  routes: {
+    '/': (context) => HomeScreen(),
+    '/details': (context) => DetailsScreen(),
+  },
+)</code></pre>
+                    
+                    <h2>Async Operations và API Calls</h2>
+                    <p>Xử lý các operations bất đồng bộ với Future và async/await:</p>
+                    <pre><code>import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+Future&lt;Map&lt;String, dynamic&gt;&gt; fetchData() async {
+  final response = await http.get(
+    Uri.parse('https://api.example.com/data'),
+  );
+  
+  if (response.statusCode == 200) {
+    return json.decode(response.body);
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
+
+// Sử dụng trong widget
+FutureBuilder&lt;Map&lt;String, dynamic&gt;&gt;(
+  future: fetchData(),
+  builder: (context, snapshot) {
+    if (snapshot.hasData) {
+      return Text(snapshot.data!['title']);
+    } else if (snapshot.hasError) {
+      return Text('Error: ${snapshot.error}');
+    }
+    return CircularProgressIndicator();
+  },
+)</code></pre>
+                    
+                    <h2>Best Practices</h2>
+                    <ul>
+                        <li>Tách logic business ra khỏi UI widgets</li>
+                        <li>Sử dụng const constructors khi có thể để tối ưu performance</li>
+                        <li>Tránh rebuild không cần thiết với keys phù hợp</li>
+                        <li>Sử dụng ListView.builder cho danh sách dài</li>
+                        <li>Optimize images với cache và compression</li>
+                        <li>Test widgets với widget tests</li>
+                    </ul>
+                    
+                    <h2>Performance Tips</h2>
+                    <ol>
+                        <li>Sử dụng <code>const</code> widgets để tránh rebuild</li>
+                        <li>Lazy load với <code>ListView.builder</code> thay vì <code>ListView</code></li>
+                        <li>Cache expensive computations với <code>Memoization</code></li>
+                        <li>Optimize images với proper formats và sizes</li>
+                        <li>Profile app với Flutter DevTools</li>
+                    </ol>
+                </div>
+
+                <!-- Post Footer -->
+                <footer class="mt-12 pt-8 border-t border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <a href="index.html" class="inline-flex items-center gap-2 px-6 py-3 bg-navy-900 text-white rounded-lg hover:bg-navy-800 transition-colors duration-200 cursor-pointer">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            </svg>
+                            Về tất cả bài viết
+                        </a>
+                        <div class="text-sm text-slate-500">
+                            Chia sẻ bài viết
+                        </div>
+                    </div>
+                </footer>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 py-8 px-4">
+        <div class="max-w-6xl mx-auto text-center text-slate-600">
+            <p>&copy; Được xây dựng với đam mê cho clean code.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

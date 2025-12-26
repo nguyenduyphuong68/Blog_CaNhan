@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Memory Model và Concurrency - Java Developer Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            200: '#bcccdc',
+                            300: '#9fb3c8',
+                            400: '#829ab1',
+                            500: '#627d98',
+                            600: '#486581',
+                            700: '#334e68',
+                            800: '#243b53',
+                            900: '#102a43',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .post-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.75;
+        }
+        .post-content h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #102a43;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .post-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #243b53;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .post-content code {
+            background-color: #f1f5f9;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+            color: #334e68;
+        }
+        .post-content pre {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        .post-content pre code {
+            background-color: transparent;
+            padding: 0;
+            color: inherit;
+        }
+        .post-content ul, .post-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .post-content li {
+            margin-bottom: 0.5rem;
+        }
+        .post-content a {
+            color: #486581;
+            text-decoration: underline;
+        }
+        .post-content a:hover {
+            color: #102a43;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 antialiased">
+    <nav class="fixed top-4 left-4 right-4 z-50 max-w-7xl mx-auto">
+        <div class="bg-white/90 backdrop-blur-md border border-gray-200 rounded-lg shadow-sm px-6 py-3 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-semibold text-navy-900 cursor-pointer">I’m Phuong</a>
+            <a href="index.html" class="text-slate-600 hover:text-navy-900 transition-colors duration-200 cursor-pointer flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Về trang chủ
+            </a>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <article>
+                <header class="mb-8">
+                    <div class="flex items-center gap-2 mb-4">
+                        <a href="index.html" class="text-sm text-slate-500 hover:text-navy-900 transition-colors duration-200 cursor-pointer flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            </svg>
+                            Về danh sách bài viết
+                        </a>
+                        <span class="text-slate-400">•</span>
+                        <span class="text-sm text-slate-500 font-mono">22 tháng 12, 2026</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-navy-900 mb-6 leading-tight">Java Memory Model và Concurrency</h1>
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Java</span>
+<span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Concurrency</span>
+<span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Performance</span>
+                    </div>
+                </header>
+
+                <div class="post-content bg-white border border-gray-200 rounded-2xl shadow-sm p-8 md:p-12 prose prose-slate max-w-none">
+                    <p>Java Memory Model (JMM) định nghĩa cách các threads tương tác qua memory và các hành vi được đảm bảo. Hiểu JMM là rất quan trọng để viết các chương trình concurrent đúng đắn.</p>
+            
+            <h2>Happens-Before Relationships</h2>
+            <p>Happens-before relationship thiết lập các đảm bảo về thứ tự giữa các operations. Nếu action A happens-before action B, thì kết quả của A sẽ visible đối với B.</p>
+            
+            <h3>Các Quy Tắc Happens-Before Chính</h3>
+            <ul>
+                <li>Program order: Các actions trong một thread xảy ra theo thứ tự chương trình</li>
+                <li>Monitor lock: Unlocking một monitor happens-before bất kỳ lock tiếp theo nào</li>
+                <li>Volatile: Một write vào volatile field happens-before bất kỳ read tiếp theo nào</li>
+                <li>Thread start: Một lời gọi <code>Thread.start()</code> happens-before bất kỳ action nào trong thread đã được start</li>
+            </ul>
+            
+            <h2>Từ Khóa Volatile</h2>
+            <p>Từ khóa <code>volatile</code> đảm bảo tính visible của các thay đổi giữa các threads:</p>
+            <pre><code>public class Counter {
+    private volatile int count = 0;
+    
+    public void increment() {
+        count++; // Not atomic!
+    }
+}</code></pre>
+            
+            <p>Lưu ý: <code>volatile</code> đảm bảo visibility nhưng không đảm bảo atomicity. Đối với atomic operations, sử dụng <code>AtomicInteger</code> hoặc synchronization.</p>
+            
+            <h2>Synchronization</h2>
+            <p>Synchronization cung cấp cả mutual exclusion và visibility guarantees:</p>
+            <pre><code>public class ThreadSafeCounter {
+    private int count = 0;
+    
+    public synchronized void increment() {
+        count++;
+    }
+    
+    public synchronized int getCount() {
+        return count;
+    }
+}</code></pre>
+            
+            <h2>Best Practices</h2>
+            <ol>
+                <li>Sử dụng các classes trong <code>java.util.concurrent</code> khi có thể</li>
+                <li>Ưu tiên immutable objects để tránh synchronization</li>
+                <li>Tài liệu hóa thread-safety guarantees một cách rõ ràng</li>
+                <li>Test concurrent code một cách kỹ lưỡng</li>
+            </ol>
+                </div>
+
+                <footer class="mt-12 pt-8 border-t border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <a href="index.html" class="inline-flex items-center gap-2 px-6 py-3 bg-navy-900 text-white rounded-lg hover:bg-navy-800 transition-colors duration-200 cursor-pointer">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            </svg>
+                            Về tất cả bài viết
+                        </a>
+                        <div class="text-sm text-slate-500">
+                            Chia sẻ bài viết
+                        </div>
+                    </div>
+                </footer>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-gray-200 py-8 px-4">
+        <div class="max-w-6xl mx-auto text-center text-slate-600">
+            <p>&copy; Được xây dựng với đam mê cho clean code.</p>
+        </div>
+    </footer>
+</body>
+</html>
