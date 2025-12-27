@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài 1: Tổng quan về lập trình mạng</title>
+    <title>Bài 9: Phân tán đối tượng bằng Java RMI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,7 +96,6 @@
     </style>
 </head>
 <body class="bg-white text-slate-900 antialiased">
-    <!-- Navigation -->
     <nav class="fixed top-4 left-4 right-4 z-50 max-w-7xl mx-auto">
         <div class="bg-white/90 backdrop-blur-md border border-gray-200 rounded-lg shadow-sm px-6 py-3 flex items-center justify-between">
             <a href="index.html" class="text-xl font-semibold text-navy-900 cursor-pointer">I'm Phuong</a>
@@ -109,11 +108,9 @@
         </div>
     </nav>
 
-    <!-- Post Content -->
     <main class="pt-32 pb-20 px-4">
         <div class="max-w-4xl mx-auto">
             <article>
-                <!-- Post Header -->
                 <header class="mb-8">
                     <div class="flex items-center gap-2 mb-4">
                         <a href="index.html" class="text-sm text-slate-500 hover:text-navy-900 transition-colors duration-200 cursor-pointer flex items-center gap-1">
@@ -125,95 +122,251 @@
                         <span class="text-slate-400">•</span>
                         <span class="text-sm text-slate-500 font-mono">22 tháng 12, 2025</span>
                     </div>
-                    <h1 class="text-4xl md:text-5xl font-bold text-navy-900 mb-6 leading-tight">Bài 1: Tổng quan về lập trình mạng</h1>
+                    <h1 class="text-4xl md:text-5xl font-bold text-navy-900 mb-6 leading-tight">Bài 9: Phân tán đối tượng bằng Java RMI</h1>
                     <div class="flex flex-wrap gap-2 mb-8">
-                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Java Networking</span>
-                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Network Programming</span>
-                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">TCP/IP</span>
+                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Java RMI</span>
+                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Distributed Systems</span>
+                        <span class="px-3 py-1.5 bg-navy-50 text-navy-700 text-sm font-medium rounded-lg">Remote Objects</span>
                     </div>
                 </header>
 
-                <!-- Post Body -->
                 <div class="post-content bg-white border border-gray-200 rounded-2xl shadow-sm p-8 md:p-12 prose prose-slate max-w-none">
-                    <p>Bài viết này sẽ giúp độc giả có cái nhìn tổng quát về thế giới mạng máy tính và các mô hình giao tiếp cơ bản.</p>
+                    <p>Công nghệ cho phép gọi phương thức của một đối tượng ở máy xa như đang gọi cục bộ.</p>
                     
-                    <h2>Vai trò ứng dụng mạng</h2>
-                    <p>Ứng dụng mạng cho phép người dùng khai thác, trao đổi thông tin và phối hợp nhiều máy tính để giải quyết bài toán lớn. Các ứng dụng mạng hiện đại đã trở thành nền tảng của hầu hết các dịch vụ công nghệ thông tin ngày nay.</p>
+                    <h2>Thành phần kiến trúc</h2>
                     
-                    <h2>Phân loại mạng</h2>
-                    <p>Theo quy mô, mạng máy tính được phân loại thành:</p>
-                    <ul>
-                        <li><strong>LAN (Local Area Network - Mạng cục bộ)</strong>: Kết nối các máy tính trong một khu vực địa lý nhỏ như tòa nhà, văn phòng</li>
-                        <li><strong>MAN (Metropolitan Area Network - Mạng đô thị)</strong>: Kết nối các mạng LAN trong một thành phố hoặc khu vực đô thị</li>
-                        <li><strong>WAN (Wide Area Network - Mạng diện rộng)</strong>: Kết nối các mạng trên phạm vi rộng lớn, có thể xuyên quốc gia hoặc toàn cầu</li>
-                    </ul>
-                    
-                    <h2>Mô hình phân tầng</h2>
-                    <p>Để quản lý độ phức tạp của mạng, các mô hình phân tầng được sử dụng để chia nhỏ chức năng thành các lớp độc lập.</p>
-                    
-                    <h3>Mô hình OSI (7 tầng)</h3>
-                    <p>Mô hình lý thuyết với 7 tầng:</p>
-                    <ol>
-                        <li><strong>Tầng Vật lý (Physical)</strong>: Truyền tín hiệu điện tử qua môi trường vật lý</li>
-                        <li><strong>Tầng Liên kết dữ liệu (Data Link)</strong>: Đảm bảo truyền dữ liệu không lỗi giữa hai nút mạng</li>
-                        <li><strong>Tầng Mạng (Network)</strong>: Định tuyến và chuyển tiếp gói tin qua mạng</li>
-                        <li><strong>Tầng Vận chuyển (Transport)</strong>: Đảm bảo truyền dữ liệu tin cậy giữa các ứng dụng</li>
-                        <li><strong>Tầng Phiên (Session)</strong>: Quản lý phiên giao tiếp giữa các ứng dụng</li>
-                        <li><strong>Tầng Trình bày (Presentation)</strong>: Chuyển đổi định dạng dữ liệu</li>
-                        <li><strong>Tầng Ứng dụng (Application)</strong>: Cung cấp dịch vụ cho người dùng cuối</li>
-                    </ol>
-                    
-                    <h3>Mô hình TCP/IP (4 tầng)</h3>
-                    <p>Mô hình thực tế được sử dụng rộng rãi gồm 4 tầng:</p>
-                    <ol>
-                        <li><strong>Tầng Truy cập mạng (Network Access)</strong>: Tương ứng với tầng Vật lý và Liên kết dữ liệu trong OSI</li>
-                        <li><strong>Tầng Internet</strong>: Tương ứng với tầng Mạng trong OSI, sử dụng giao thức IP</li>
-                        <li><strong>Tầng Vận chuyển (Transport)</strong>: Cung cấp TCP và UDP</li>
-                        <li><strong>Tầng Ứng dụng (Application)</strong>: Bao gồm các giao thức như HTTP, FTP, SMTP</li>
-                    </ol>
-                    
-                    <h2>Giao thức vận chuyển</h2>
-                    <p>Hai giao thức vận chuyển chính được sử dụng trong mạng:</p>
-                    
-                    <h3>TCP (Transmission Control Protocol)</h3>
-                    <ul>
-                        <li><strong>Tin cậy</strong>: Đảm bảo dữ liệu được truyền đúng và đầy đủ</li>
-                        <li><strong>Có kết nối</strong>: Thiết lập kết nối trước khi truyền dữ liệu</li>
-                        <li><strong>Kiểm soát luồng</strong>: Điều chỉnh tốc độ truyền phù hợp với khả năng nhận của bên nhận</li>
-                        <li>Phù hợp cho các ứng dụng yêu cầu độ tin cậy cao như web browsing, email, file transfer</li>
-                    </ul>
-                    
-                    <h3>UDP (User Datagram Protocol)</h3>
-                    <ul>
-                        <li><strong>Nhanh</strong>: Không có overhead của việc thiết lập kết nối</li>
-                        <li><strong>Không kết nối</strong>: Gửi dữ liệu trực tiếp không cần thiết lập kết nối</li>
-                        <li><strong>Không đảm bảo</strong>: Không đảm bảo thứ tự và việc gói tin đến đích</li>
-                        <li>Phù hợp cho các ứng dụng real-time như streaming, gaming, VoIP</li>
-                    </ul>
-                    
-                    <h2>Địa chỉ IP & DNS</h2>
-                    <p>Địa chỉ IP được sử dụng để định danh nút mạng trên Internet:</p>
-                    
-                    <h3>IPv4 và IPv6</h3>
-                    <ul>
-                        <li><strong>IPv4</strong>: Sử dụng 32 bit, định dạng như 192.168.1.1 (khoảng 4.3 tỷ địa chỉ)</li>
-                        <li><strong>IPv6</strong>: Sử dụng 128 bit, định dạng như 2001:0db8:85a3:0000:0000:8a2e:0370:7334 (khoảng 3.4×10³⁸ địa chỉ)</li>
-                    </ul>
-                    
-                    <h3>DNS (Domain Name System)</h3>
-                    <p>Hệ thống tên miền (DNS) giúp con người dễ nhớ thay vì dùng địa chỉ số phức tạp. DNS chuyển đổi tên miền như <code>google.com</code> thành địa chỉ IP tương ứng như <code>172.217.164.110</code>.</p>
-                    <pre><code>// Ví dụ sử dụng DNS trong Java
-import java.net.InetAddress;
+                    <h3>Remote Interface</h3>
+                    <p>Giao diện định nghĩa các phương thức gọi từ xa. Phải kế thừa từ <code>java.rmi.Remote</code> và tất cả các phương thức phải khai báo <code>throws RemoteException</code>:</p>
+                    <pre><code>import java.rmi.Remote;
+import java.rmi.RemoteException;
 
-InetAddress address = InetAddress.getByName("google.com");
-System.out.println("IP Address: " + address.getHostAddress());
-System.out.println("Host Name: " + address.getHostName());</code></pre>
+public interface Calculator extends Remote {
+    int add(int a, int b) throws RemoteException;
+    int subtract(int a, int b) throws RemoteException;
+    int multiply(int a, int b) throws RemoteException;
+    double divide(int a, int b) throws RemoteException;
+}</code></pre>
                     
-                    <h2>Kết luận</h2>
-                    <p>Hiểu biết về tổng quan mạng máy tính là nền tảng quan trọng để phát triển các ứng dụng mạng. Các khái niệm về mô hình phân tầng, giao thức vận chuyển, và địa chỉ mạng sẽ được áp dụng xuyên suốt trong các bài học tiếp theo về lập trình mạng với Java.</p>
+                    <h3>Stubs & Skeletons</h3>
+                    <ul>
+                        <li><strong>Stubs</strong>: Các đại diện phía Client để xử lý giao tiếp trung gian. Stub được tạo tự động và chạy trên client.</li>
+                        <li><strong>Skeletons</strong>: Các đại diện phía Server (từ Java 2 trở đi, skeleton không còn cần thiết, RMI runtime xử lý trực tiếp).</li>
+                    </ul>
+                    
+                    <h3>Registry</h3>
+                    <p>Dịch vụ đăng ký và tìm kiếm đối tượng từ xa. RMI Registry chạy trên một port (mặc định 1099) và lưu trữ mapping giữa tên và remote object reference.</p>
+                    
+                    <h2>Các bước cài đặt</h2>
+                    
+                    <h3>Bước 1: Tạo Remote Interface</h3>
+                    <p>Tạo Remote Interface kế thừa <code>Remote</code>:</p>
+                    <pre><code>import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface HelloService extends Remote {
+    String sayHello(String name) throws RemoteException;
+}</code></pre>
+                    
+                    <h3>Bước 2: Triển khai Interface tại Server</h3>
+                    <p>Triển khai Interface và kế thừa <code>UnicastRemoteObject</code>:</p>
+                    <pre><code>import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class HelloServiceImpl extends UnicastRemoteObject 
+        implements HelloService {
+    
+    public HelloServiceImpl() throws RemoteException {
+        super();
+    }
+    
+    @Override
+    public String sayHello(String name) throws RemoteException {
+        return "Hello, " + name + "!";
+    }
+}</code></pre>
+                    
+                    <h3>Bước 3: Đăng ký đối tượng với RMI Registry</h3>
+                    <p>Đăng ký đối tượng với RMI Registry bằng <code>Naming.bind()</code>:</p>
+                    <pre><code>import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+
+public class HelloServer {
+    public static void main(String[] args) {
+        try {
+            // Tạo registry trên port 1099
+            LocateRegistry.createRegistry(1099);
+            
+            // Tạo remote object
+            HelloService service = new HelloServiceImpl();
+            
+            // Đăng ký với tên "HelloService"
+            Naming.bind("rmi://localhost:1099/HelloService", service);
+            
+            System.out.println("Server đã sẵn sàng...");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                    
+                    <h3>Bước 4: Client tìm đối tượng và gọi phương thức</h3>
+                    <p>Client tìm đối tượng bằng <code>Naming.lookup()</code> và gọi phương thức:</p>
+                    <pre><code>import java.rmi.Naming;
+
+public class HelloClient {
+    public static void main(String[] args) {
+        try {
+            // Tìm remote object
+            HelloService service = (HelloService) 
+                Naming.lookup("rmi://localhost:1099/HelloService");
+            
+            // Gọi phương thức từ xa
+            String response = service.sayHello("Java RMI");
+            System.out.println("Response: " + response);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                    
+                    <h2>Ví dụ hoàn chỉnh: Calculator Service</h2>
+                    
+                    <h3>Remote Interface</h3>
+                    <pre><code>import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface Calculator extends Remote {
+    int add(int a, int b) throws RemoteException;
+    int subtract(int a, int b) throws RemoteException;
+    int multiply(int a, int b) throws RemoteException;
+    double divide(int a, int b) throws RemoteException;
+}</code></pre>
+                    
+                    <h3>Implementation</h3>
+                    <pre><code>import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class CalculatorImpl extends UnicastRemoteObject 
+        implements Calculator {
+    
+    public CalculatorImpl() throws RemoteException {
+        super();
+    }
+    
+    @Override
+    public int add(int a, int b) throws RemoteException {
+        return a + b;
+    }
+    
+    @Override
+    public int subtract(int a, int b) throws RemoteException {
+        return a - b;
+    }
+    
+    @Override
+    public int multiply(int a, int b) throws RemoteException {
+        return a * b;
+    }
+    
+    @Override
+    public double divide(int a, int b) throws RemoteException {
+        if (b == 0) {
+            throw new RemoteException("Không thể chia cho 0");
+        }
+        return (double) a / b;
+    }
+}</code></pre>
+                    
+                    <h3>Server</h3>
+                    <pre><code>import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+
+public class CalculatorServer {
+    public static void main(String[] args) {
+        try {
+            LocateRegistry.createRegistry(1099);
+            
+            Calculator calculator = new CalculatorImpl();
+            Naming.bind("rmi://localhost:1099/Calculator", calculator);
+            
+            System.out.println("Calculator Server đã sẵn sàng...");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                    
+                    <h3>Client</h3>
+                    <pre><code>import java.rmi.Naming;
+
+public class CalculatorClient {
+    public static void main(String[] args) {
+        try {
+            Calculator calc = (Calculator) 
+                Naming.lookup("rmi://localhost:1099/Calculator");
+            
+            System.out.println("10 + 5 = " + calc.add(10, 5));
+            System.out.println("10 - 5 = " + calc.subtract(10, 5));
+            System.out.println("10 * 5 = " + calc.multiply(10, 5));
+            System.out.println("10 / 5 = " + calc.divide(10, 5));
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                    
+                    <h2>Chạy ứng dụng RMI</h2>
+                    <ol>
+                        <li><strong>Compile các file</strong>:
+                            <pre><code>javac *.java</code></pre>
+                        </li>
+                        <li><strong>Generate Stub</strong> (Java 8 trở xuống):
+                            <pre><code>rmic CalculatorImpl</code></pre>
+                        </li>
+                        <li><strong>Chạy RMI Registry</strong> (nếu chưa chạy):
+                            <pre><code>start rmiregistry</code></pre>
+                        </li>
+                        <li><strong>Chạy Server</strong>:
+                            <pre><code>java CalculatorServer</code></pre>
+                        </li>
+                        <li><strong>Chạy Client</strong> (trong terminal khác):
+                            <pre><code>java CalculatorClient</code></pre>
+                        </li>
+                    </ol>
+                    
+                    <h2>Ưu điểm và nhược điểm</h2>
+                    
+                    <h3>Ưu điểm</h3>
+                    <ul>
+                        <li>Đơn giản, dễ sử dụng với Java</li>
+                        <li>Tự động xử lý serialization/deserialization</li>
+                        <li>Hỗ trợ garbage collection cho remote objects</li>
+                        <li>Tích hợp tốt với Java</li>
+                    </ul>
+                    
+                    <h3>Nhược điểm</h3>
+                    <ul>
+                        <li>Chỉ hoạt động với Java (không cross-platform)</li>
+                        <li>Bảo mật có thể là vấn đề (cần cấu hình security policy)</li>
+                        <li>Hiệu suất có thể chậm hơn so với các giải pháp khác</li>
+                        <li>Firewall có thể chặn RMI traffic</li>
+                    </ul>
+                    
+                    <h2>Best Practices</h2>
+                    <ul>
+                        <li>Luôn khai báo <code>throws RemoteException</code> cho các phương thức remote</li>
+                        <li>Sử dụng security policy phù hợp khi chạy RMI</li>
+                        <li>Xử lý exceptions một cách phù hợp</li>
+                        <li>Xem xét sử dụng RMI over SSL/TLS cho bảo mật</li>
+                        <li>Đóng registry và unexport objects khi không còn cần thiết</li>
+                        <li>Xem xét các giải pháp thay thế như REST, gRPC cho các ứng dụng cross-platform</li>
+                    </ul>
                 </div>
 
-                <!-- Post Footer -->
                 <footer class="mt-12 pt-8 border-t border-gray-200">
                     <div class="flex items-center">
                         <a href="index.html" class="inline-flex items-center gap-2 px-6 py-3 bg-navy-900 text-white rounded-lg hover:bg-navy-800 transition-colors duration-200 cursor-pointer">
@@ -228,7 +381,6 @@ System.out.println("Host Name: " + address.getHostName());</code></pre>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="border-t border-gray-200 py-8 px-4 bg-slate-50">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-6">
@@ -271,3 +423,4 @@ System.out.println("Host Name: " + address.getHostName());</code></pre>
     </footer>
 </body>
 </html>
+

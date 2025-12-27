@@ -2,51 +2,75 @@
 const blogPosts = [
     {
         id: 1,
-        title: "Xây Dựng Ứng Dụng Mobile với Flutter",
-        excerpt: "Khám phá Flutter framework để phát triển ứng dụng mobile đa nền tảng, từ State Management đến Widget Tree và Performance Optimization.",
-        content: "Flutter là một framework mã nguồn mở của Google để xây dựng ứng dụng mobile đa nền tảng...",
-        date: "2026-12-22",
-        tags: ["Flutter", "Mobile Development", "Dart"]
+        title: "Bài 1: Tổng quan về lập trình mạng",
+        excerpt: "Bài viết này sẽ giúp độc giả có cái nhìn tổng quát về thế giới mạng máy tính và các mô hình giao tiếp cơ bản, bao gồm OSI, TCP/IP, và các giao thức vận chuyển.",
+        content: "Bài viết này sẽ giúp độc giả có cái nhìn tổng quát về thế giới mạng máy tính và các mô hình giao tiếp cơ bản...",
+        date: "2025-12-22",
+        tags: ["Java Networking", "Network Programming", "TCP/IP"]
     },
     {
         id: 2,
-        title: "Các Pattern Giao Tiếp trong Microservices",
-        excerpt: "Khám phá các pattern giao tiếp đồng bộ và bất đồng bộ trong kiến trúc microservices, bao gồm REST, gRPC, và message queues.",
-        content: "Kiến trúc microservices yêu cầu cân nhắc cẩn thận về cách các services giao tiếp với nhau...",
-        date: "2026-12-22",
-        tags: ["Microservices", "Architecture", "Distributed Systems"]
+        title: "Bài 2: Quản lý các luồng nhập xuất (I/O Streams)",
+        excerpt: "Dữ liệu trong mạng di chuyển dưới dạng luồng. Bài blog này sẽ đi sâu vào cách Java xử lý các dòng chảy dữ liệu này, bao gồm byte streams, character streams, và buffering.",
+        content: "Dữ liệu trong mạng di chuyển dưới dạng luồng. Bài blog này sẽ đi sâu vào cách Java xử lý các dòng chảy dữ liệu này...",
+        date: "2025-12-22",
+        tags: ["Java I/O", "Streams", "File Handling"]
     },
     {
         id: 3,
-        title: "Java Memory Model và Concurrency",
-        excerpt: "Hướng dẫn toàn diện về Java Memory Model, happens-before relationships, và cách viết thread-safe code.",
-        content: "Java Memory Model (JMM) định nghĩa cách các threads tương tác qua memory và các hành vi được đảm bảo...",
-        date: "2026-12-22",
-        tags: ["Java", "Concurrency", "Performance"]
+        title: "Bài 3: Lập trình đa tuyến (Multithreading)",
+        excerpt: "Đây là kỹ thuật quan trọng để ứng dụng mạng có thể xử lý nhiều yêu cầu cùng lúc. Học cách tạo thread, quản lý thread, và đồng bộ hóa trong Java.",
+        content: "Đây là kỹ thuật quan trọng để ứng dụng mạng có thể xử lý nhiều yêu cầu cùng lúc...",
+        date: "2025-12-22",
+        tags: ["Java Threading", "Concurrency", "Multithreading"]
     },
     {
         id: 4,
-        title: "Xây Dựng RESTful APIs với Spring WebFlux",
-        excerpt: "Học cách xây dựng reactive REST APIs sử dụng Spring WebFlux, khám phá lợi ích của non-blocking I/O và reactive streams.",
-        content: "Spring WebFlux cung cấp mô hình reactive programming để xây dựng web applications...",
-        date: "2026-12-22",
-        tags: ["Spring", "Reactive", "API"]
+        title: "Bài 4: Quản lý địa chỉ kết nối mạng",
+        excerpt: "Học cách xác định và tương tác với các tài nguyên trên Internet thông qua Java, sử dụng InetAddress, URL, và URLConnection.",
+        content: "Học cách xác định và tương tác với các tài nguyên trên Internet thông qua Java...",
+        date: "2025-12-22",
+        tags: ["Java Networking", "InetAddress", "URL"]
     },
     {
         id: 5,
-        title: "Docker hóa Java Applications",
-        excerpt: "Best practices cho việc containerize Java applications với Docker, bao gồm multi-stage builds và JVM tuning cho containers.",
-        content: "Containerization đã trở nên thiết yếu cho việc triển khai Java applications hiện đại...",
-        date: "2026-12-22",
-        tags: ["Docker", "DevOps", "Java"]
+        title: "Bài 5: Lập trình Socket cho giao thức TCP",
+        excerpt: "Hướng dẫn xây dựng mô hình Khách/Chủ (Client/Server) sử dụng kết nối tin cậy TCP. Học cách tạo Socket, ServerSocket và xử lý nhiều client đồng thời.",
+        content: "Hướng dẫn xây dựng mô hình Khách/Chủ (Client/Server) sử dụng kết nối tin cậy TCP...",
+        date: "2025-12-22",
+        tags: ["Java Socket", "TCP", "Client-Server"]
     },
     {
         id: 6,
-        title: "Kỹ Thuật Testing Nâng Cao với JUnit 5",
-        excerpt: "Làm chủ các tính năng nâng cao của JUnit 5 bao gồm parameterized tests, test templates, và custom extensions cho các scenarios testing phức tạp.",
-        content: "JUnit 5 giới thiệu các tính năng mạnh mẽ vượt xa basic unit testing...",
-        date: "2026-12-22",
-        tags: ["Testing", "JUnit", "Quality"]
+        title: "Bài 6: Đa tiến trình và Tuần tự hóa đối tượng",
+        excerpt: "Nâng cấp Server đơn lẻ thành Server tương tranh có khả năng phục vụ hàng ngàn khách hàng đồng thời. Học về serialization và cách truyền đối tượng qua mạng.",
+        content: "Nâng cấp Server đơn lẻ thành Server tương tranh có khả năng phục vụ hàng ngàn khách hàng đồng thời...",
+        date: "2025-12-22",
+        tags: ["Java Concurrency", "Serialization", "Network Programming"]
+    },
+    {
+        id: 7,
+        title: "Bài 7: Lập trình mạng cho giao thức UDP",
+        excerpt: "Giải pháp truyền tin tốc độ cao cho các ứng dụng không yêu cầu độ tin cậy tuyệt đối như Streaming hay Game. Học cách sử dụng DatagramSocket và DatagramPacket.",
+        content: "Giải pháp truyền tin tốc độ cao cho các ứng dụng không yêu cầu độ tin cậy tuyệt đối như Streaming hay Game...",
+        date: "2025-12-22",
+        tags: ["UDP", "DatagramSocket", "Network Programming"]
+    },
+    {
+        id: 8,
+        title: "Bài 8: Lập trình Multicast",
+        excerpt: "Kỹ thuật truyền dữ liệu hiệu quả từ một nguồn tới một nhóm máy tính cùng lúc. Học về MulticastSocket, joinGroup, và các ứng dụng của multicast.",
+        content: "Kỹ thuật truyền dữ liệu hiệu quả từ một nguồn tới một nhóm máy tính cùng lúc...",
+        date: "2025-12-22",
+        tags: ["Multicast", "Network Programming", "UDP"]
+    },
+    {
+        id: 9,
+        title: "Bài 9: Phân tán đối tượng bằng Java RMI",
+        excerpt: "Công nghệ cho phép gọi phương thức của một đối tượng ở máy xa như đang gọi cục bộ. Học cách tạo Remote Interface, triển khai RMI Server và Client.",
+        content: "Công nghệ cho phép gọi phương thức của một đối tượng ở máy xa như đang gọi cục bộ...",
+        date: "2025-12-22",
+        tags: ["Java RMI", "Distributed Systems", "Remote Objects"]
     }
 ];
 
